@@ -13,7 +13,7 @@ st.set_page_config(page_title="Career Recommender", layout="centered")
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     logo = Image.open("young_aspiring_thinkers_logo.jpeg")
-    st.image(logo, use_column_width=True)
+    st.image(logo, width=180)
 
 st.markdown(
     "<h1 style='text-align: center;'>🎓 Career Path Recommender</h1>",
