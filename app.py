@@ -1,7 +1,6 @@
 # app.py
 
 import streamlit as st
-import openai
 from openai import OpenAI
 import torch
 import torch.nn.functional as F
@@ -43,7 +42,7 @@ tokenizer, model = load_model()
 # === If user submits ===
 if submit:
     # === Step 1: Generate starting job using ChatGPT ===
-    openai.api_key = "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"  
+    client = OpenAI(api_key=st.secrets["openai"]["api_key"])
     # openai.api_key="anything"
     # openai.base_url="http://localhost:3040/v1"
     prompt = f"""
@@ -58,9 +57,6 @@ if submit:
 
     try:
         with st.spinner("Thinking..."):
-            client = OpenAI(
-                    api_key="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"
-            )
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
