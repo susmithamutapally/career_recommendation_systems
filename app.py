@@ -6,6 +6,16 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoModel, AutoTokenizer
 
+from PIL import Image
+
+logo = Image.open("young_aspiring_thinkers_logo.jpeg")
+st.image(logo, width=150)  
+
+st.markdown(
+    "<h1 style='text-align: center;'>🎓 Career Path Recommender</h1>",
+    unsafe_allow_html=True
+)
+
 # === Setup ===
 st.set_page_config(page_title="Career Recommender", layout="centered")
 st.title("🎓 Career Path Recommender")
