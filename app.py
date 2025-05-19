@@ -5,20 +5,20 @@ from openai import OpenAI
 import torch
 import torch.nn.functional as F
 from transformers import AutoModel, AutoTokenizer
-
 from PIL import Image
 
-logo = Image.open("young_aspiring_thinkers_logo.jpeg")
-st.image(logo, width=150)  
+st.set_page_config(page_title="Career Recommender", layout="centered")
+
+# === Centered logo and header block ===
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    logo = Image.open("young_aspiring_thinkers_logo.jpeg")
+    st.image(logo, use_column_width=True)
 
 st.markdown(
     "<h1 style='text-align: center;'>🎓 Career Path Recommender</h1>",
     unsafe_allow_html=True
 )
-
-# === Setup ===
-st.set_page_config(page_title="Career Recommender", layout="centered")
-st.title("🎓 Career Path Recommender")
 st.write("Answer a few questions to get a personalized career suggestion!")
 
 # === Inputs ===
