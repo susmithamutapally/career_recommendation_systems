@@ -6,17 +6,99 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoModel, AutoTokenizer
 from PIL import Image
+import base64
 
 st.set_page_config(page_title="Career Recommender", layout="centered")
+
+
+# Convert local image to base64
+def get_base64_logo(path):
+    with open(path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
+logo_base64 = get_base64_logo("young_aspiring_thinkers_logo.png")
+
+# Inject fixed-position clickable logo in top-left corner
+# Inject fixed-position clickable logo (lower + larger)
+st.markdown(f"""
+    <style>
+    .fixed-logo {{
+        position: fixed;
+        top: 60px;      /* Moved lower for full visibility */
+        left: 40px;     /* Small buffer from edge */
+        z-index: 1000;
+    }}
+    </style>
+
+    <div class="fixed-logo">
+        <a href="https://youngaspiringthinkers.org" target="_blank">
+            <img src="data:image/png;base64,{logo_base64}" width="180">
+        </a>
+    </div>
+""", unsafe_allow_html=True)
+
+
+
+# Add top and left padding to the main app content to avoid logo overlap
+# Add padding to avoid overlap with fixed logo
+st.markdown("""
+    <style>
+    section.main > div:first-child {
+        padding-top: 90px;
+        padding-left: 20px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
+
+st.markdown("""
+    <style>
+    /* === Input border override === */
+    div[data-baseweb="select"] > div {
+        border: 1px solid #4CAF50 !important;
+        box-shadow: none !important;
+    }
+
+    div[data-baseweb="select"]:focus-within > div {
+        border: 2px solid #388E3C !important;
+    }
+
+    .stMultiSelect [data-baseweb="tag"] {
+        background-color: #C8E6C9 !important;
+        color: black !important;
+    }
+
+    /* === Button style (normal + hover + active) === */
+    .stButton > button {
+        background-color: #4CAF50 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 6px;
+    }
+
+    .stButton > button:hover {
+        background-color: #45a049 !important;
+        color: white !important;
+    }
+
+    .stButton > button:active {
+        background-color: #388E3C !important;
+        color: white !important;
+        border: none !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # # === Centered logo and header block ===
 # col1, col2, col3 = st.columns([1, 2, 1])
 # with col2:
-#     logo = Image.open("young_aspiring_thinkers_logo.jpeg")
+#     logo = Image.open("young_aspiring_thinkers_logo.png")
 #     st.image(logo, width=180)
 
 st.markdown(
-    "<h1 style='text-align: center;'>🎓 Career Path Recommender</h1>",
+    "<h1 style='text-align: left;'>🎓 Career Path Recommender</h1>",
     unsafe_allow_html=True
 )
 st.write("Answer a few questions to get a personalized career suggestion!")
@@ -24,12 +106,14 @@ st.write("Answer a few questions to get a personalized career suggestion!")
 # === Inputs ===
 interests = st.multiselect(
     "What are your interests?",
-    ["Technology", "Business", "Healthcare", "Engineering", "Media", "Agriculture", "Finance", "AI", "Design", "Education"]
+    ["Information Technology (IT)", "Business", "Healthcare", "Engineering", "Media", "Agriculture", "Finance", "AI", 
+     "Design", "Education", "Audit & Tax", "Mining", "Transportation & Logistics"]
 )
 
 skills = st.multiselect(
     "What skills do you have?",
-    ["Problem-solving", "Coding", "Math", "Writing", "Creativity", "Teamwork", "Public speaking"]
+    ["Problem-solving", "Coding", "Math", "Writing", "Creativity", "Public speaking", "Data Analysis","Communication",
+     "Project Management","Financial Modeling","Research","Technical Skills","Supply Chain Knowledge"]
 )
 
 education = st.selectbox(
@@ -106,3 +190,27 @@ if submit:
 
     except Exception as e:
         st.error(f"Error generating career suggestion: {e}")
+
+
+# st.markdown("---")
+# st.markdown("📣 We'd love your feedback to improve this tool!")
+
+# st.markdown(
+#     "[Fill out our quick feedback form](https://forms.gle/pGLd1D5WeZcvE8GS7)",
+#     unsafe_allow_html=True
+# )
+# === Show feedback prompt after recommendations ===
+st.markdown("---")
+
+st.markdown(
+    """
+    <div style="padding: 1rem; background-color: #f0f8ff; border-left: 4px solid #4CAF50; border-radius: 8px; font-size: 0.95rem;">
+        <h4 style="margin-top: 0; font-size: 1rem;">📣 We'd love your feedback!</h4>
+        <p style="margin-bottom: 0.5rem;">Help us improve the tool by sharing your thoughts.</p>
+        <a href="https://forms.gle/pGLd1D5WeZcvE8GS7" target="_blank" style="color: #1a73e8; font-weight: bold;">
+            Fill out our quick feedback form
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
