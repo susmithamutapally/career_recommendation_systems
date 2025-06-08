@@ -112,8 +112,27 @@ interests = st.multiselect(
 
 skills = st.multiselect(
     "What skills do you have?",
-    ["Problem-solving", "Coding", "Math", "Writing", "Creativity", "Public speaking", "Data Analysis","Communication",
-     "Project Management","Financial Modeling","Research","Technical Skills","Supply Chain Knowledge"]
+    [
+        # WEF 2025 Core Skills
+        "Analytical thinking",
+        "Resilience, flexibility and agility",
+        "Leadership and social influence",
+        "Creative thinking",
+        "Motivation and self-awareness",
+        "Technological literacy",
+        "Empathy and active listening",
+        "Curiosity and lifelong learning",
+        "Talent management",
+        "Service orientation and customer service",
+        # Technical/Domain-Specific Skills
+        "Coding",
+        "Math",
+        "Data Analysis",
+        "Public speaking",
+        "Project Management",
+        "Research",
+        "Financial Modeling"
+    ]
 )
 
 education = st.selectbox(
