@@ -29,15 +29,15 @@ A personalized, AI-powered career recommendation tool developed using OpenAI and
 - Education Level: Post-matric / University
 
 **Output:**
-- 🎯 Starting Role: *Business Analyst*
-- 🔮 Top Career Matches:
+- Starting Role: *Business Analyst*
+- Top Career Matches:
   - Data Analyst
   - Marketing Specialist
   - Product Manager
 
 ---
 
-## 🔧 Tech Stack
+## Tech Stack
 
 - [Streamlit](https://streamlit.io) — frontend UI
 - [OpenAI API](https://platform.openai.com) — for starting role generation
